@@ -21,9 +21,7 @@ fetch("./texts.json")
 
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
-  console.log(e);
   const newLetter = e.key;
-  console.log(newLetter);
 
   // Handle backspace press
   if (newLetter == "Backspace") {
@@ -32,10 +30,11 @@ const typeController = (e) => {
   }
 
   // these are the valid character we are allowing to type ^&*()_+-={}[]'\".,?";
+  const validLetters = ["Control", "Alt", "Shift"];
 
   // if it is not a valid character like Control/Alt then skip displaying anything
-  if (!validLetters.includes(newLetter)) {
-    return;
+  if (validLetters.includes(newLetter)) {
+    return newLetter;
   }
 
   userText += newLetter;
@@ -67,7 +66,7 @@ const validate = (key) => {
 
 // FINISHED TYPING
 const gameOver = () => {
-  document.removeEventListener("keydown", typeController());
+  document.removeEventListener("keydown", typeController);
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
@@ -117,10 +116,11 @@ const start = () => {
     if (count == 0) {
       countdownOverlay.style.display = "none";
       // -------------- START TYPING -----------------
-      display.addEventListener("keydown", typeController());
+      document.addEventListener("keydown", typeController);
       display.classList.remove("inactive");
 
       clearInterval(startCountdown);
+
       startTime = new Date().getTime();
     }
     count--;
@@ -128,7 +128,7 @@ const start = () => {
 };
 
 // START Countdown
-startBtn.addEventListener("click", start());
+startBtn.addEventListener("click", start);
 
 // If history exists, show it
 displayHistory();
