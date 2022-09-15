@@ -34,7 +34,7 @@ const typeController = (e) => {
 
   // if it is not a valid character like Control/Alt then skip displaying anything
   if (validLetters.includes(newLetter)) {
-    return newLetter;
+    return;
   }
 
   userText += newLetter;
@@ -136,7 +136,7 @@ displayHistory();
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
-  const timeSpent = (currentTime - startTime) / 1000;
+  const timeSpent = parseInt((currentTime - startTime) / 1000);
 
   document.getElementById("show-time").innerHTML = `${
     startTime ? timeSpent : 0
